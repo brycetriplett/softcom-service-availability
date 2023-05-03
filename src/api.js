@@ -9,5 +9,7 @@ const headers = {headers: {
 }}
 
 
-export default (apiUrl, formData) =>
-    axios.post(`${baseUrl}/${apiUrl}`, formData, headers)
+export default (apiUrl, formData) => {
+  console.log(formData)
+  return axios.post(`${baseUrl}/${apiUrl}`, formData, headers)
+}
