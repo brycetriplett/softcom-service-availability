@@ -1,0 +1,10 @@
+export { default as AddressCard } from './Address/AddressCard';
+export { default as PriceCard } from './Price/PriceCard';
+export { default as AddressPage } from './Address/AddressPage';
+export { default as PricePage } from './Price/PricePage';
+export { default as ConfirmationPage } from './Confirmation/ConfirmationPage';
+export { default as ErrorPage } from './ErrorPage';
+export { default as LoadingPage } from './LoadingPage';
+export { default as BaseTemplate } from './BaseTemplate';
+export { default as MainStepper } from './MainStepper';
+export { default as MainFooter } from './MainFooter'
