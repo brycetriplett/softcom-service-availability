@@ -21,7 +21,8 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
 
   useEffect(()=>{
     if (orderNumber.length > 0) {
-      setTimeout(()=>setLoadTransitionState(false), 1000)
+      const timeoutID = setTimeout(()=>setLoadTransitionState(false), 1000)
+      clearTimeout(timeoutID)
     }
   }, [orderNumber])
 

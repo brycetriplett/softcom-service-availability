@@ -18,8 +18,9 @@ const PricePage = ({ formData, setFormData, setPage, setChosenTier }) => {
     .then((res)=>{
       console.log(res)
       setTierList(res)
-      setTimeout(()=>setLoadTransitionState(false), 1000)
+      return setTimeout(()=>setLoadTransitionState(false), 1000)
     })
+    .then(res=>clearTimeout(res))
     .catch(()=>setPage('error'))
   }, [])
 
