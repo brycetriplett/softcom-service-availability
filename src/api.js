@@ -1,15 +1,34 @@
 import axios from 'axios';
-//
 
 
-const baseUrl = 'https://api.towercoverage.com/towercoverage.asmx';
+const formData = {
+  'multicoverageid': '55805',
+  'account': '4187',
+  'key': '8e29acb356ce37b7066d08cc3a4fd2b3',
+  'country': 'United States',
+  'howdidyouhear': 'website',
+  'preferredmethod': 'any',
+  'besttimetocontact': 'business hours',
+  'clientip': '',
+  'latitude': '',
+  'longitude': '',
+  'RxMargin': ''
+};
 
-const headers = {headers: {
-  'Content-Type': 'application/x-www-form-urlencoded',
-}}
-
-
-export default (apiUrl, formData) => {
-  console.log(formData)
-  return axios.post(`${baseUrl}/${apiUrl}`, formData, headers)
+const towerCoverageAPI = (apiUrl, formData) => {
+  return axios.post(`https://api.towercoverage.com/towercoverage.asmx/${apiUrl}`, formData, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }
+  })
 }
+
+const parseResponse = (data) => {
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(data, "text/xml");
+  const result = xmlDoc.getElementsByTagName('string')[0].innerHTML;
+  return result
+}
+
+
+export { towerCoverageAPI, parseResponse, formData }

@@ -7,4 +7,4 @@ export { default as ErrorPage } from './ErrorPage';
 export { default as LoadingPage } from './LoadingPage';
 export { default as BaseTemplate } from './BaseTemplate';
 export { default as MainStepper } from './MainStepper';
-export { default as MainFooter } from './MainFooter'
+export { default as MainFooter } from './MainFooter';

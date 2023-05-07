@@ -1,6 +1,7 @@
 import { Fade, Zoom } from '@mui/material'
 import { useState } from 'react';
 import { AddressCard, BaseTemplate } from '..';
+import { formData } from '../../api'
 
 
 const AddressPage = ({ setFormData, setPage }) => {
@@ -11,27 +12,14 @@ const AddressPage = ({ setFormData, setPage }) => {
 
     const data = new FormData(event.currentTarget);
 
-    let result = {
-      'multicoverageid': process.env.REACT_APP_MULTICOVERAGE_ID,
-      'account': process.env.REACT_APP_ACCOUNT,
-      'key': process.env.REACT_APP_KEY,
-      'country': 'United States',
-      'howdidyouhear': 'website',
-      'preferredmethod': 'any',
-      'besttimetocontact': 'business hours',
-      'clientip': '',
-      'latitude': '',
-      'longitude': '',
-      'RxMargin': ''
-    };
+    let result = {...formData};
 
     for (const [key, value] of data.entries()) {
       result[key] = value;
     }
 
     setFormData(result);
-    setTransitionState(false);
-    setTimeout(()=> setPage('price'), 1000)
+    setTransitionState(false)
   }
   
 
@@ -39,7 +27,7 @@ const AddressPage = ({ setFormData, setPage }) => {
     <Fade in={true}>
       <div>
         <BaseTemplate activeStep={0}>
-          <Zoom in={transitionState}>
+          <Zoom in={transitionState} onExited={()=>setPage('price')}>
             <div>
               <AddressCard handleSubmit={handleSubmit} />
             </div>

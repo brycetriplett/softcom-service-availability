@@ -1,37 +1,32 @@
 import { useEffect, useState } from 'react'
-import { Zoom, Stack, Typography } from '@mui/material';
+import { Zoom, Stack, Typography, Grid } from '@mui/material';
 
 import PriceCard from './PriceCard'
 import LoadingPage from '../LoadingPage';
 import BaseTemplate from '../BaseTemplate';
-import TowerCoverageAPI from '../../api.js';
-import tiers from './prices';
+import findMaxPrice from './findMaxPrice'
 
 
-const PricePage = ({ formData, setFormData, setPage }) => {
+const PricePage = ({ formData, setFormData, setPage, setChosenTier }) => {
   const [loadTransitionState, setLoadTransitionState] = useState(true)
   const [mainTransitionState, setMainTransitionState] = useState(true)
-  const [prequalResult, setPrequalResult] = useState('');
+  const [tierList, setTierList] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(()=>{
-    TowerCoverageAPI(`EUSPrequalAPI`, formData)
-      .then(res => {
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(res.data, "text/xml");
-        const result = xmlDoc.getElementsByTagName('string')[0].innerHTML;
-        
-        setPrequalResult(result);
-      })
-      .then(()=>setLoadTransitionState(false))
-      .then(()=>setTimeout(()=>setLoading(false), 1000))
-      .catch(()=>setPage('error'))
+    findMaxPrice(formData)
+    .then((res)=>{
+      console.log(res)
+      setTierList(res)
+      setTimeout(()=>setLoadTransitionState(false), 1000)
+    })
+    .catch(()=>setPage('error'))
   }, [])
+
 
   useEffect(() => {
     if (formData.comments) {
       setMainTransitionState(false);
-      setTimeout(() => setPage('confirmation'), 1000);
     } 
   }, [formData]);
 
@@ -41,19 +36,33 @@ const PricePage = ({ formData, setFormData, setPage }) => {
       {
         loading 
 
-        ? <Zoom in={loadTransitionState}><div><LoadingPage>Checking for service availability....</LoadingPage></div></Zoom>
+        ? <Zoom 
+          in={loadTransitionState} 
+          onExited={() => setLoading(false)}
+        >
+          <div><LoadingPage>Checking for service availability....</LoadingPage></div>
+        </Zoom>
 
-        : <Zoom in={mainTransitionState}>
+        : <Zoom 
+            in={mainTransitionState}
+            onExited={()=>setPage('confirmation')}
+          >
             <div>
               <Stack spacing={2} sx={{ m: 8, alignItems: 'center' }}>
                 <Typography variant="h4">Congrats! Service is available to you.</Typography>
                 <Typography variant="h5" gutterBottom>Please select one of our available plans:</Typography>
               </Stack>
-              <PriceCard 
-                tiers={prequalResult === 'yes' ? tiers.main : tiers.alternative} 
-                formData={formData}
-                setFormData={setFormData}
-              />
+              <Grid container rowSpacing={5} columnSpacing={8} alignItems='center' justifyContent='center' sx={{mt:1}}>
+              {Object.keys(tierList).map((key)=>
+                <PriceCard
+                  formData={formData}
+                  setFormData={setFormData}
+                  setChosenTier={setChosenTier}
+                  tier={tierList[key]}
+                  key={key}
+                />
+              )}
+              </Grid>
             </div>
           </Zoom>
       }

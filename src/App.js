@@ -4,6 +4,7 @@ import { AddressPage, PricePage, ConfirmationPage, ErrorPage } from './component
 
 const App = () => {
     const [formData, setFormData] = useState({});
+    const [chosenTier, setChosenTier] = useState({})
     const [page, setPage] = useState('address');
 
     if (page === 'address') {
@@ -11,11 +12,11 @@ const App = () => {
     }
 
     else if (page === 'price') {
-        return <PricePage formData={formData} setFormData={setFormData} setPage={setPage} />
+        return <PricePage formData={formData} setFormData={setFormData} setChosenTier={setChosenTier} setPage={setPage} />
     }
 
     else if (page === 'confirmation') {
-        return <ConfirmationPage formData={formData} setPage={setPage} />
+        return <ConfirmationPage formData={formData} chosenTier={chosenTier} setPage={setPage} />
     }
     
     else if (page === 'error') {
