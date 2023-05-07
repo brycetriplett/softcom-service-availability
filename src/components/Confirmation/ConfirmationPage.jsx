@@ -20,9 +20,16 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
   }, [])
 
   useEffect(()=>{
+    let timeoutID
+
     if (orderNumber.length > 0) {
-      const timeoutID = setTimeout(()=>setLoadTransitionState(false), 1000)
-      clearTimeout(timeoutID)
+      timeoutID = setTimeout(()=>setLoadTransitionState(false), 1000)
+    }
+
+    return () => {
+      if (timeoutID) {
+        clearTimeout(timeoutID)
+      }
     }
   }, [orderNumber])
 

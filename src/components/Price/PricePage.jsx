@@ -15,14 +15,23 @@ const PricePage = ({ formData, setFormData, setPage, setChosenTier }) => {
 
   useEffect(()=>{
     findMaxPrice(formData)
-    .then((res)=>{
-      console.log(res)
-      setTierList(res)
-      return setTimeout(()=>setLoadTransitionState(false), 1000)
-    })
-    .then(res=>clearTimeout(res))
+    .then(res=>setTierList(res))
     .catch(()=>setPage('error'))
   }, [])
+
+  useEffect(()=>{
+    let timeoutID;
+
+    if (Object.keys(tierList).length > 0) {
+      timeoutID = setTimeout(()=>setLoadTransitionState(false), 1000)
+    }
+
+    return () => {
+      if (timeoutID) {
+        clearTimeout(timeoutID)
+      }
+    }
+  }, [tierList])
 
 
   useEffect(() => {

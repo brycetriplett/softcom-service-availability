@@ -7,12 +7,8 @@ const findMaxPrice = async (data) => {
     let resultList = {}
 
     const process = async (formData) => {
-        const timeoutID = setTimeout(()=>{}, 2000)
-        clearTimeout(timeoutID)
-        console.log('starting api request!')
         let request = await towerCoverageAPI('EUSPrequalAPI', formData)
         let result = parseResponse(request.data)
-        console.log('api answer: ' + result)
         return result
     }
 
