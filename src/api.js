@@ -19,7 +19,8 @@ const towerCoverageAPI = (apiUrl, formData) => {
   return axios.post(`https://api.towercoverage.com/towercoverage.asmx/${apiUrl}`, formData, {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-    }
+    },
+    timeout: 10000
   })
 }
 
