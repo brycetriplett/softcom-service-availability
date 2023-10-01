@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseTemplate } from "./";
-import { Zoom, Typography, Stack, Paper } from "@mui/material";
+import { Zoom, Typography, Stack, Paper, Button } from "@mui/material";
 
 const NoServicePage = () => {
   return (
@@ -18,7 +18,7 @@ const NoServicePage = () => {
           }}
         >
           <Stack
-            spacing={2}
+            spacing={5}
             sx={{ m: 4, alignItems: "center", textAlign: "center" }}
           >
             <Typography variant="h5" gutterBottom>
@@ -31,6 +31,13 @@ const NoServicePage = () => {
               <br />
               to inquire about our plans to service your area in the future.
             </Typography>
+            <Button
+              color="primary"
+              sx={{ float: "right" }}
+              href="https://www.softcom.net"
+            >
+              Return to Homepage
+            </Button>
           </Stack>
         </Paper>
       </Zoom>
