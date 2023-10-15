@@ -1,4 +1,5 @@
 # Customer servicability and onboarding tool
+#### Site can be reached by going to https://softcom-service-availability.herokuapp.com
 This application is linked on the softcom.net home page and in advertisements to check if a potential customer could be serviced by Softcom, and to log their information in order to connect them to our sales team. It accomplishes this by using a map service by towercoverage.com which gives us the ability to build maps that contain our different tower sites, and allows us to have different maps for different service tiers.
 
 ### Steps in the process
