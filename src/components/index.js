@@ -9,3 +9,5 @@ export { default as BaseTemplate } from "./BaseTemplate";
 export { default as MainStepper } from "./MainStepper";
 export { default as MainFooter } from "./MainFooter";
 export { default as NoServicePage } from "./NoServicePage";
+export { default as ContactCard } from "./Contact/ContactCard";
+export { default as ContactPage } from "./Contact/ContactPage";

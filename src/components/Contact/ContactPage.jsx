@@ -1,10 +1,9 @@
 import { Fade, Zoom, Typography } from "@mui/material";
 import { useState } from "react";
-import { AddressCard, BaseTemplate } from "..";
-import { formData } from "../../api";
+import { ContactCard, BaseTemplate } from "..";
 //
 
-const AddressPage = ({ setFormData, setPage }) => {
+const ContactPage = ({ setFormData, formData, setPage }) => {
   const [transitionState, setTransitionState] = useState(true);
 
   const handleSubmit = (event) => {
@@ -25,16 +24,16 @@ const AddressPage = ({ setFormData, setPage }) => {
   return (
     <Fade in={true}>
       <div>
-        <BaseTemplate activeStep={0}>
-          <Zoom in={transitionState} onExited={() => setPage("price")}>
+        <BaseTemplate activeStep={2}>
+          <Zoom in={transitionState} onExited={() => setPage("confirmation")}>
             <div>
               <Typography
                 variant="h4"
                 sx={{ textAlign: "center", marginBottom: 5, marginTop: 8 }}
               >
-                Enter Address
+                Provide Contact Information
               </Typography>
-              <AddressCard handleSubmit={handleSubmit} />
+              <ContactCard handleSubmit={handleSubmit} />
             </div>
           </Zoom>
         </BaseTemplate>
@@ -43,4 +42,4 @@ const AddressPage = ({ setFormData, setPage }) => {
   );
 };
 
-export default AddressPage;
+export default ContactPage;

@@ -5,6 +5,7 @@ import {
   ConfirmationPage,
   ErrorPage,
   NoServicePage,
+  ContactPage,
 } from "./components";
 
 const App = () => {
@@ -20,6 +21,14 @@ const App = () => {
         formData={formData}
         setFormData={setFormData}
         setChosenTier={setChosenTier}
+        setPage={setPage}
+      />
+    );
+  } else if (page === "contact") {
+    return (
+      <ContactPage
+        formData={formData}
+        setFormData={setFormData}
         setPage={setPage}
       />
     );

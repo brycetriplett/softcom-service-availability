@@ -53,7 +53,7 @@ const PricePage = ({ formData, setFormData, setPage, setChosenTier }) => {
           </div>
         </Zoom>
       ) : (
-        <Zoom in={mainTransitionState} onExited={() => setPage("confirmation")}>
+        <Zoom in={mainTransitionState} onExited={() => setPage("contact")}>
           <div>
             <Stack spacing={2} sx={{ m: 8, alignItems: "center" }}>
               <Typography variant="h4">
