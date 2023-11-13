@@ -90,7 +90,7 @@ const OrderConfirmation = ({ orderNumber, formData, chosenTier }) => {
             <Button
               color="primary"
               sx={{ float: "right" }}
-              href="https://www.softcom.net"
+              href="https://www.softcom.net/check-availability/get-softcom-successful-submission/"
             >
               Return to Homepage
             </Button>
