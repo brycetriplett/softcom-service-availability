@@ -1,70 +1,18 @@
-# Getting Started with Create React App
+# Customer servicability and onboarding tool
+#### Site can be reached by going to https://softcom-service-availability.herokuapp.com
+This application is linked on the softcom.net home page and in advertisements to check if a potential customer could be serviced by Softcom, and to log their information in order to connect them to our sales team. It accomplishes this by using a map service by towercoverage.com which gives us the ability to build maps that contain our different tower sites, and allows us to have different maps for different service tiers.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Steps in the process
 
-## Available Scripts
+## Gather Customer Information
+<img src="https://github.com/brycetriplett/softcom-service-availability/blob/main/github_pics/check_availability.png" alt="Alt text" width="400"></img><br>
+The first step in the application simply asks for the potential customer's address and contact information. This is then sent to towercoverage.com's Multi Maps API where the address is checked against 3 different maps containing tower location coverages. Our overall coverage map, another map with locations that provide our mid-tier service plans, and another map with locations that provide our high-tier service plans.
 
-In the project directory, you can run:
+## Ask for preferred service rate
+<img src="https://github.com/brycetriplett/softcom-service-availability/blob/main/github_pics/present_options.png" alt="Alt text" width="400"></img><br>
+The potential customer is now asked to choose a service plan that is available to them. If the potential customer's address falls into any of the 3 maps, their highest available rate will then be presented. If they don't fall into the overall coverage map, they are presented with no options and are offered to contact our customer service team to inquire about when service could be available to them.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Store the customer information and present them with a receipt
+<img src="https://github.com/brycetriplett/softcom-service-availability/blob/main/github_pics/present_order.png" alt="Alt text" width="400"></img><br><br>
+Once the potential customer has chosen a preferred plan, that choice is sent over to towercoverage.com's EUS API, along with their address and contact information. This creates a uniquely numbered entry that can be seen by the sales team, and shows which specific tower sites are available to the customer on a map. They can then contact and onboard them into the billing platform and mark their entry as complete.<br><br>
+<img src="https://github.com/brycetriplett/softcom-service-availability/blob/main/github_pics/towercoverage.png" alt="Alt text" width="1000"></img><br>
