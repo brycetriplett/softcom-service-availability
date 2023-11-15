@@ -1,10 +1,12 @@
 import { Fade, Zoom, Typography } from "@mui/material";
 import { useState } from "react";
 import { ContactCard, BaseTemplate } from "..";
+import { useHistory } from "react-router-dom";
 //
 
 const ContactPage = ({ setFormData, formData, setPage }) => {
   const [transitionState, setTransitionState] = useState(true);
+  const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,7 +27,10 @@ const ContactPage = ({ setFormData, formData, setPage }) => {
     <Fade in={true}>
       <div>
         <BaseTemplate activeStep={2}>
-          <Zoom in={transitionState} onExited={() => setPage("confirmation")}>
+          <Zoom
+            in={transitionState}
+            onExited={() => history.push("confirmation")}
+          >
             <div>
               <Typography
                 variant="h4"

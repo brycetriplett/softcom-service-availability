@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Zoom, Stack, Typography, Grid } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 import PriceCard from "./PriceCard";
 import LoadingPage from "../LoadingPage";
@@ -11,6 +12,7 @@ const PricePage = ({ formData, setFormData, setPage, setChosenTier }) => {
   const [mainTransitionState, setMainTransitionState] = useState(true);
   const [tierList, setTierList] = useState({});
   const [loading, setLoading] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     findMaxPrice(formData)
@@ -53,7 +55,7 @@ const PricePage = ({ formData, setFormData, setPage, setChosenTier }) => {
           </div>
         </Zoom>
       ) : (
-        <Zoom in={mainTransitionState} onExited={() => setPage("contact")}>
+        <Zoom in={mainTransitionState} onExited={() => history.push("contact")}>
           <div>
             <Stack spacing={2} sx={{ m: 8, alignItems: "center" }}>
               <Typography variant="h4">

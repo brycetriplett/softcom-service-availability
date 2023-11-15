@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 import {
   AddressPage,
   PricePage,
@@ -11,40 +12,30 @@ import {
 const App = () => {
   const [formData, setFormData] = useState({});
   const [chosenTier, setChosenTier] = useState({});
-  const [page, setPage] = useState("address");
 
-  if (page === "address") {
-    return <AddressPage setFormData={setFormData} setPage={setPage} />;
-  } else if (page === "price") {
-    return (
-      <PricePage
-        formData={formData}
-        setFormData={setFormData}
-        setChosenTier={setChosenTier}
-        setPage={setPage}
-      />
-    );
-  } else if (page === "contact") {
-    return (
-      <ContactPage
-        formData={formData}
-        setFormData={setFormData}
-        setPage={setPage}
-      />
-    );
-  } else if (page === "confirmation") {
-    return (
-      <ConfirmationPage
-        formData={formData}
-        chosenTier={chosenTier}
-        setPage={setPage}
-      />
-    );
-  } else if (page === "error") {
-    return <ErrorPage />;
-  } else if (page === "noService") {
-    return <NoServicePage />;
-  }
+  return (
+    <Switch>
+      <Route path="/address">
+        <AddressPage setFormData={setFormData} />
+      </Route>
+      <Route path="/price">
+        <PricePage
+          formData={formData}
+          setFormData={setFormData}
+          setChosenTier={setChosenTier}
+        />
+      </Route>
+      <Route path="/contact">
+        <ContactPage formData={formData} setFormData={setFormData} />
+      </Route>
+      <Route path="/confirmation">
+        <ConfirmationPage formData={formData} chosenTier={chosenTier} />
+      </Route>
+      <Route path="/error" component={ErrorPage} />
+      <Route path="/noService" component={NoServicePage} />
+      <Redirect from="/" to="/address" />
+    </Switch>
+  );
 };
 
 export default App;

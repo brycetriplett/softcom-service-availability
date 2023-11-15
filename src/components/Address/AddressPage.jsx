@@ -2,10 +2,12 @@ import { Fade, Zoom, Typography } from "@mui/material";
 import { useState } from "react";
 import { AddressCard, BaseTemplate } from "..";
 import { formData } from "../../api";
+import { useHistory } from "react-router-dom";
 //
 
 const AddressPage = ({ setFormData, setPage }) => {
   const [transitionState, setTransitionState] = useState(true);
+  const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -26,7 +28,7 @@ const AddressPage = ({ setFormData, setPage }) => {
     <Fade in={true}>
       <div>
         <BaseTemplate activeStep={0}>
-          <Zoom in={transitionState} onExited={() => setPage("price")}>
+          <Zoom in={transitionState} onExited={() => history.push("/price")}>
             <div>
               <Typography
                 variant="h4"
