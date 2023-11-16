@@ -1,10 +1,11 @@
 import axios from "axios";
 
-const formData = {
+const initialFormData = {
   multicoverageid: "55805",
   account: "4187",
   key: "8e29acb356ce37b7066d08cc3a4fd2b3",
   country: "United States",
+  state: "California",
   howdidyouhear: "website",
   preferredmethod: "any",
   besttimetocontact: "business hours",
@@ -34,4 +35,4 @@ const parseResponse = (data) => {
   return result;
 };
 
-export { towerCoverageAPI, parseResponse, formData };
+export { towerCoverageAPI, parseResponse, initialFormData };

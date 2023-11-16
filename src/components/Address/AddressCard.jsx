@@ -39,15 +39,6 @@ const AddressCard = ({ handleSubmit }) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              id="state"
-              name="state"
-              label="State"
-              fullWidth
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
               required
               id="zipcode"
               name="zipcode"

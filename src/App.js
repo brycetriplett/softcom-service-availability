@@ -16,7 +16,7 @@ const App = () => {
   return (
     <Switch>
       <Route path="/address">
-        <AddressPage setFormData={setFormData} />
+        <AddressPage setFormData={setFormData} formData={formData} />
       </Route>
       <Route path="/price">
         <PricePage

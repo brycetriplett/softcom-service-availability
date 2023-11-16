@@ -7,7 +7,7 @@ import LoadingPage from "../LoadingPage";
 import BaseTemplate from "../BaseTemplate";
 import findMaxPrice from "./findMaxPrice";
 
-const PricePage = ({ formData, setFormData, setPage, setChosenTier }) => {
+const PricePage = ({ formData, setFormData, setChosenTier }) => {
   const [loadTransitionState, setLoadTransitionState] = useState(true);
   const [mainTransitionState, setMainTransitionState] = useState(true);
   const [tierList, setTierList] = useState({});
@@ -15,15 +15,16 @@ const PricePage = ({ formData, setFormData, setPage, setChosenTier }) => {
   const history = useHistory();
 
   useEffect(() => {
+    console.log("we made it here");
     findMaxPrice(formData)
       .then((res) => {
         if (Object.keys(res).length === 0) {
-          setPage("noService");
+          history.push("noService");
         } else {
           setTierList(res);
         }
       })
-      .catch(() => setPage("error"));
+      .catch(() => history.push("error"));
   }, []);
 
   useEffect(() => {

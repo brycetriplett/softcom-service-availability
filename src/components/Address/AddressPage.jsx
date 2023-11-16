@@ -1,28 +1,49 @@
 import { Fade, Zoom, Typography } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AddressCard, BaseTemplate } from "..";
-import { formData } from "../../api";
-import { useHistory } from "react-router-dom";
+import { initialFormData } from "../../api";
+import { useHistory, useLocation } from "react-router-dom";
 //
 
-const AddressPage = ({ setFormData, setPage }) => {
+const AddressPage = ({ formData, setFormData }) => {
   const [transitionState, setTransitionState] = useState(true);
   const history = useHistory();
+  const location = useLocation();
+
+  const getQueryParam = (name) => {
+    const params = new URLSearchParams(location.search);
+    return params.get(name);
+  };
+
+  useEffect(() => {
+    let params = {
+      address: decodeURIComponent(getQueryParam("address")),
+      address2: decodeURIComponent(getQueryParam("address2")),
+      city: decodeURIComponent(getQueryParam("city")),
+      zipcode: decodeURIComponent(getQueryParam("zipcode")),
+    };
+
+    let result = { ...initialFormData, ...params };
+    setFormData(result);
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
 
-    let result = { ...formData };
+    let result = { ...initialFormData };
 
     for (const [key, value] of data.entries()) {
       result[key] = value;
     }
 
     setFormData(result);
-    setTransitionState(false);
   };
+
+  useEffect(() => {
+    setTransitionState(false);
+  }, [formData]);
 
   return (
     <Fade in={true}>
