@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Zoom, Stack, Typography, Grid } from "@mui/material";
+import { Zoom, Stack, Typography, Grid, Divider } from "@mui/material";
 import { useHistory } from "react-router-dom";
 
 import PriceCard from "./PriceCard";
@@ -58,12 +58,16 @@ const PricePage = ({ formData, setFormData, setChosenTier }) => {
       ) : (
         <Zoom in={mainTransitionState} onExited={() => history.push("contact")}>
           <div>
-            <Stack spacing={2} sx={{ m: 8, alignItems: "center" }}>
-              <Typography variant="h4">
-                Congrats! Service is available to you.
+            <Stack
+              spacing={5}
+              sx={{ m: 8, alignItems: "center", textAlign: "center" }}
+            >
+              <Typography variant="h5">
+                Great news! Your location is eligible for Softcom's premier
+                high-speed internet services.
               </Typography>
-              <Typography variant="h5" gutterBottom>
-                Please select one of our available plans:
+              <Typography variant="h5">
+                Check out the available plans:
               </Typography>
             </Stack>
             <Grid
@@ -72,7 +76,6 @@ const PricePage = ({ formData, setFormData, setChosenTier }) => {
               columnSpacing={8}
               alignItems="center"
               justifyContent="center"
-              sx={{ mt: 1 }}
             >
               {Object.keys(tierList).map((key) => (
                 <PriceCard
@@ -84,6 +87,20 @@ const PricePage = ({ formData, setFormData, setChosenTier }) => {
                 />
               ))}
             </Grid>
+            <Divider sx={{ my: 12 }}></Divider>
+            <Stack
+              spacing={5}
+              sx={{ m: 8, alignItems: "center", textAlign: "center" }}
+            >
+              <Typography variant="subtitle1">
+                Our plans are designed for those who demand the best in internet
+                performance. Ideal for remote work or learning, gaming, or
+                high-usage households, we offer consistent, high-speed
+                connectivity. Choose your plan and join the Softcom community
+                for unparalleled internet quality and speed. Elevate your online
+                experience today!
+              </Typography>
+            </Stack>
           </div>
         </Zoom>
       )}
