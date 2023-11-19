@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Typography, Zoom, Stack } from "@mui/material";
+import { Typography, Zoom, Stack, Divider } from "@mui/material";
 
 import { towerCoverageAPI, parseResponse } from "../../api";
 import LoadingPage from "../LoadingPage";
@@ -44,9 +44,11 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
         <Zoom in={true}>
           <div>
             <Stack spacing={2} sx={{ m: 8, alignItems: "center" }}>
-              <Typography variant="h4">Your order has been placed</Typography>
+              <Typography variant="h4">
+                Thank you for choosing Softcom!
+              </Typography>
               <Typography variant="h5" gutterBottom>
-                Our customer service team will be in touch with you soon
+                Your order has been successfully placed.
               </Typography>
             </Stack>
             <OrderConfirmation
@@ -54,6 +56,28 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
               formData={formData}
               chosenTier={chosenTier}
             />
+            <Divider sx={{ my: 12 }}></Divider>
+            <Stack
+              spacing={3}
+              sx={{ m: 8, alignItems: "center", textAlign: "center" }}
+            >
+              <Typography variant="subtitle1">
+                What Happens Next? Our dedicated customer service team will
+                personally reach out to you shortly to schedule your
+                installation. We're committed to ensuring a smooth and efficient
+                setup process, so you can start enjoying your high-speed
+                internet as soon as possible. Need Assistance? If you have any
+                questions or need further assistance, feel free to contact us at
+              </Typography>
+              <Typography variant="h5">
+                <b>800-982-7675</b>
+              </Typography>
+              <Typography variant="subtitle1">
+                Our team is here to help! We're excited to welcome you to the
+                Softcom community and provide you with an exceptional internet
+                experience.
+              </Typography>
+            </Stack>
           </div>
         </Zoom>
       )}

@@ -5,14 +5,14 @@ import { Zoom, Typography, Stack, Paper, Button } from "@mui/material";
 const NoServicePage = () => {
   return (
     <BaseTemplate activeStep={-1}>
-      <Typography variant="h4" sx={{ marginBottom: 7, marginTop: 8 }}>
+      <Typography variant="h5" sx={{ marginBottom: 7, marginTop: 8 }}>
         Service Unavailable
       </Typography>
       <Zoom in={true}>
         <Paper
           elevation={3}
           sx={{
-            padding: 4,
+            padding: 3,
             margin: "0 auto",
             borderWidth: 1,
           }}
@@ -21,15 +21,19 @@ const NoServicePage = () => {
             spacing={5}
             sx={{ m: 4, alignItems: "center", textAlign: "center" }}
           >
-            <Typography variant="h5" gutterBottom>
-              Service is currently unavailable in your area <br />
-              However, we may be able to provide you with service sometime in
-              the future! <br />
-              Please give our customer service team a call at <br />
-              <br />
-              <b>800-982-7675 Opt. 2</b> <br />
-              <br />
-              to inquire about our plans to service your area in the future.
+            <Typography variant="subtitle1">
+              Thank you for your interest in Softcom's high-speed internet
+              services. Unfortunately, we're not in your area just yet, but
+              we're constantly expanding our reach. Please call our customer
+              service team at <br />
+              <h3>
+                <b>800-982-7675</b>
+              </h3>
+              to learn more about our growth plans and when we anticipate being
+              able to serve your location. Your connectivity matters to us, and
+              we're working hard to bring our top-notch internet services to
+              more areas like yours. Stay connected with Softcom for updates and
+              be the first to know when we're available in your neighborhood.
             </Typography>
             <Button
               color="primary"
