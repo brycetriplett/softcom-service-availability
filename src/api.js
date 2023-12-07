@@ -23,7 +23,6 @@ const towerCoverageAPI = (apiUrl, formData) => {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout: 100000,
     }
   );
 };
