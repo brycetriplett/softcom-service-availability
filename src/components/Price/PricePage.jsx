@@ -31,7 +31,7 @@ const PricePage = ({ formData, setFormData, setChosenTier }) => {
     let timeoutID;
 
     if (Object.keys(tierList).length > 0) {
-      timeoutID = setTimeout(() => setLoadTransitionState(false), 1000);
+      timeoutID = setTimeout(() => setLoadTransitionState(false), 10000);
     }
 
     return () => {

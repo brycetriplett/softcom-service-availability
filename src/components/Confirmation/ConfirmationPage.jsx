@@ -5,17 +5,37 @@ import { towerCoverageAPI, parseResponse } from "../../api";
 import LoadingPage from "../LoadingPage";
 import OrderConfirmation from "./OrderConfirmation";
 import BaseTemplate from "../BaseTemplate";
+import emailjs from "@emailjs/browser";
 
 const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
   const [loading, setLoading] = useState(true);
   const [loadTransitionState, setLoadTransitionState] = useState(true);
   const [orderNumber, setOrderNumber] = useState("");
 
+  // send customer info to towercoverage
   useEffect(() => {
     towerCoverageAPI(`EUSsubmisssion`, formData)
       .then((res) => parseResponse(res.data))
       .then((res) => setOrderNumber(res))
       .catch(() => setPage("error"));
+  }, []);
+
+  // send customer an email confirmation
+  useEffect(() => {
+    let templateParams = {
+      name: formData.firstName,
+      email: formData.emailaddress,
+      plan: chosenTier.title,
+      rate: chosenTier.price,
+      license: chosenTier.license,
+    };
+
+    emailjs.send(
+      "service_ww56ayh", //service ID
+      "template_rtxfj8m", //template ID
+      templateParams, //template parameters
+      "2xncjIQ_0IupPvZzO" //public key
+    );
   }, []);
 
   useEffect(() => {
