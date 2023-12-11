@@ -32,7 +32,7 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
 
     emailjs.send(
       "service_vm3rbsi", //service ID
-      "template_rtxfj8m", //template ID
+      "template_oosf3c8", //template ID
       templateParams, //template parameters
       "2xncjIQ_0IupPvZzO" //public key
     );
