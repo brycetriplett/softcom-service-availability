@@ -12,30 +12,47 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
   const [loadTransitionState, setLoadTransitionState] = useState(true);
   const [orderNumber, setOrderNumber] = useState("");
 
+  // to be used with both of the emails that are sent
+  let templateParams = {
+    name: formData.firstName,
+    lastName: formData.lastName,
+    address: formData.address,
+    address2: formData.address2,
+    city: formData.city,
+    zipcode: formData.zipcode,
+    email: formData.emailaddress,
+    plan: chosenTier.title,
+    rate: chosenTier.price,
+    license: chosenTier.license,
+    phonenumber: chosenTier.phonenumber,
+  };
+
+  // send customer an email confirmation
+  useEffect(() => {
+    emailjs.send(
+      "service_vm3rbsi", //service ID
+      "template_zz9t4op", //template ID
+      templateParams, //template parameters
+      "2xncjIQ_0IupPvZzO" //public key
+    );
+  }, []);
+
+  // send sales an email confirmation
+  useEffect(() => {
+    emailjs.send(
+      "service_vm3rbsi", //service ID
+      "template_8rff6rw", //template ID
+      templateParams, //template parameters
+      "2xncjIQ_0IupPvZzO" //public key
+    );
+  }, []);
+
   // send customer info to towercoverage
   useEffect(() => {
     towerCoverageAPI(`EUSsubmisssion`, formData)
       .then((res) => parseResponse(res.data))
       .then((res) => setOrderNumber(res))
       .catch(() => setPage("error"));
-  }, []);
-
-  // send customer an email confirmation
-  useEffect(() => {
-    let templateParams = {
-      name: formData.firstName,
-      email: formData.emailaddress,
-      plan: chosenTier.title,
-      rate: chosenTier.price,
-      license: chosenTier.license,
-    };
-
-    emailjs.send(
-      "service_vm3rbsi", //service ID
-      "template_oosf3c8", //template ID
-      templateParams, //template parameters
-      "2xncjIQ_0IupPvZzO" //public key
-    );
   }, []);
 
   useEffect(() => {
