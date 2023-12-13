@@ -11,6 +11,7 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
   const [loading, setLoading] = useState(true);
   const [loadTransitionState, setLoadTransitionState] = useState(true);
   const [orderNumber, setOrderNumber] = useState("");
+  const [sendEmail, setSendEmail] = useState(false);
 
   // to be used with both of the emails that are sent
   let templateParams = {
@@ -24,35 +25,42 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
     plan: chosenTier.title,
     rate: chosenTier.price,
     license: chosenTier.license,
-    phonenumber: chosenTier.phonenumber,
+    phonenumber: formData.phonenumber,
   };
 
-  // send customer an email confirmation
+  // useEffect for sending customer an email confirmation
   useEffect(() => {
-    emailjs.send(
-      "service_vm3rbsi", //service ID
-      "template_zz9t4op", //template ID
-      templateParams, //template parameters
-      "2xncjIQ_0IupPvZzO" //public key
-    );
-  }, []);
+    if (sendEmail) {
+      emailjs.send(
+        "service_vm3rbsi", // service ID
+        "template_zz9t4op", // template ID
+        templateParams, // template parameters
+        "2xncjIQ_0IupPvZzO" // public key
+      );
+    }
+  }, [sendEmail]);
 
-  // send sales an email confirmation
+  // useEffect for sending sales an email confirmation
   useEffect(() => {
-    emailjs.send(
-      "service_vm3rbsi", //service ID
-      "template_8rff6rw", //template ID
-      templateParams, //template parameters
-      "2xncjIQ_0IupPvZzO" //public key
-    );
-  }, []);
+    if (sendEmail) {
+      emailjs.send(
+        "service_vm3rbsi", // service ID
+        "template_nms012o", // template ID
+        templateParams, // template parameters
+        "2xncjIQ_0IupPvZzO" // public key
+      );
+    }
+  }, [sendEmail]);
 
   // send customer info to towercoverage
   useEffect(() => {
-    towerCoverageAPI(`EUSsubmisssion`, formData)
-      .then((res) => parseResponse(res.data))
-      .then((res) => setOrderNumber(res))
-      .catch(() => setPage("error"));
+    if (orderNumber === "") {
+      towerCoverageAPI(`EUSsubmisssion`, formData)
+        .then((res) => parseResponse(res.data))
+        .then((res) => setOrderNumber(res))
+        .then(() => setSendEmail(true))
+        .catch(() => setPage("error"));
+    }
   }, []);
 
   useEffect(() => {

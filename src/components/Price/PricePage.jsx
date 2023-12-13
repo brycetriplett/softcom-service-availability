@@ -51,7 +51,13 @@ const PricePage = ({ formData, setFormData, setChosenTier }) => {
       {loading ? (
         <Zoom in={loadTransitionState} onExited={() => setLoading(false)}>
           <div>
-            <LoadingPage>Checking for service availability....</LoadingPage>
+            <LoadingPage>
+              While we're checking for service availability at your location,
+              did you know Softcom offers speeds up to 400 Mbps in rural areas?
+              We're working to see what's available for you. This process could
+              take up to 2 minutes. We appreciate your patience as we explore
+              the best internet options at your property location.
+            </LoadingPage>
           </div>
         </Zoom>
       ) : (
