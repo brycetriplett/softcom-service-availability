@@ -16,15 +16,19 @@ const AddressPage = ({ formData, setFormData }) => {
   };
 
   useEffect(() => {
-    let params = {
-      address: decodeURIComponent(getQueryParam("address")),
-      address2: decodeURIComponent(getQueryParam("address2")),
-      city: decodeURIComponent(getQueryParam("city")),
-      zipcode: decodeURIComponent(getQueryParam("zipcode")),
-    };
+    console.log(formData);
+    if (getQueryParam("address")) {
+      let params = {
+        address: decodeURIComponent(getQueryParam("address")),
+        address2: decodeURIComponent(getQueryParam("address2")),
+        city: decodeURIComponent(getQueryParam("city")),
+        zipcode: decodeURIComponent(getQueryParam("zipcode")),
+      };
 
-    let result = { ...initialFormData, ...params };
-    setFormData(result);
+      console.log(getQueryParam("address"));
+      let result = { ...initialFormData, ...params };
+      setFormData(result);
+    }
   }, []);
 
   const handleSubmit = (event) => {
@@ -42,7 +46,9 @@ const AddressPage = ({ formData, setFormData }) => {
   };
 
   useEffect(() => {
-    setTransitionState(false);
+    if ("address" in formData) {
+      setTransitionState(false);
+    }
   }, [formData]);
 
   return (
