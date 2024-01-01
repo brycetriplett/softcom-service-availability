@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Zoom, Stack, Divider } from "@mui/material";
-
 import { towerCoverageAPI, parseResponse } from "../../api";
 import LoadingPage from "../LoadingPage";
 import OrderConfirmation from "./OrderConfirmation";
 import BaseTemplate from "../BaseTemplate";
 import emailjs from "@emailjs/browser";
+import ReactPixel from "react-facebook-pixel";
 
 const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
   const [loading, setLoading] = useState(true);
@@ -13,7 +13,6 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
   const [orderNumber, setOrderNumber] = useState("");
   const [sendEmail, setSendEmail] = useState(false);
 
-  // to be used with both of the emails that are sent
   let templateParams = {
     name: formData.firstName,
     lastName: formData.lastName,
@@ -28,40 +27,26 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
     phonenumber: formData.phonenumber,
   };
 
-  // useEffect for sending customer an email confirmation
-  useEffect(() => {
-    if (sendEmail) {
-      emailjs.send(
-        "service_vm3rbsi", // service ID
-        "template_zz9t4op", // template ID
-        templateParams, // template parameters
-        "2xncjIQ_0IupPvZzO" // public key
-      );
-    }
-  }, [sendEmail]);
-
-  // useEffect for sending sales an email confirmation
-  useEffect(() => {
-    if (sendEmail) {
-      emailjs.send(
-        "service_vm3rbsi", // service ID
-        "template_nms012o", // template ID
-        templateParams, // template parameters
-        "2xncjIQ_0IupPvZzO" // public key
-      );
-    }
-  }, [sendEmail]);
-
-  // send customer info to towercoverage
   useEffect(() => {
     if (orderNumber === "") {
+      // Send customer info to towercoverage
       towerCoverageAPI(`EUSsubmisssion`, formData)
         .then((res) => parseResponse(res.data))
         .then((res) => setOrderNumber(res))
-        .then(() => setSendEmail(true))
+        .then(() => {
+          // Track Lead event when the order is successfully placed
+          ReactPixel.track("Lead", {
+            content_name: "OrderConfirmation", // Replace with appropriate content name
+            value: chosenTier.price, // You can adjust the value based on your scenario
+            currency: "USD", // Replace with the appropriate currency code
+          });
+
+          // Set sendEmail to true after successfully placing the order
+          setSendEmail(true);
+        })
         .catch(() => setPage("error"));
     }
-  }, []);
+  }, [orderNumber, formData, setPage]);
 
   useEffect(() => {
     let timeoutID;
@@ -76,6 +61,23 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
       }
     };
   }, [orderNumber]);
+
+  useEffect(() => {
+    if (sendEmail) {
+      emailjs.send(
+        "service_vm3rbsi", // service ID
+        "template_zz9t4op", // template ID
+        templateParams, // template parameters
+        "2xncjIQ_0IupPvZzO" // public key
+      );
+      emailjs.send(
+        "service_vm3rbsi", // service ID
+        "template_nms012o", // template ID
+        templateParams, // template parameters
+        "2xncjIQ_0IupPvZzO" // public key
+      );
+    }
+  }, [sendEmail, templateParams]);
 
   return (
     <BaseTemplate activeStep={3}>
