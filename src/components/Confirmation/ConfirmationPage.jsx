@@ -12,6 +12,10 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
   const [loadTransitionState, setLoadTransitionState] = useState(true);
   const [orderNumber, setOrderNumber] = useState("");
   const [sendEmail, setSendEmail] = useState(false);
+  const [emailSent, setEmailSent] = useState({
+    template_zz9t4op: false,
+    template_nms012o: false,
+  });
 
   let templateParams = {
     name: formData.firstName,
@@ -64,20 +68,32 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
 
   useEffect(() => {
     if (sendEmail) {
-      emailjs.send(
-        "service_vm3rbsi", // service ID
-        "template_zz9t4op", // template ID
-        templateParams, // template parameters
-        "2xncjIQ_0IupPvZzO" // public key
-      );
-      emailjs.send(
-        "service_vm3rbsi", // service ID
-        "template_nms012o", // template ID
-        templateParams, // template parameters
-        "2xncjIQ_0IupPvZzO" // public key
-      );
+      if (!emailSent.template_zz9t4op) {
+        emailjs.send(
+          "service_vm3rbsi", // service ID
+          "template_zz9t4op", // template ID
+          templateParams, // template parameters
+          "2xncjIQ_0IupPvZzO" // public key
+        );
+        setEmailSent((prev) => ({
+          ...prev,
+          template_zz9t4op: true,
+        }));
+      }
+      if (!emailSent.template_nms012o) {
+        emailjs.send(
+          "service_vm3rbsi", // service ID
+          "template_nms012o", // template ID
+          templateParams, // template parameters
+          "2xncjIQ_0IupPvZzO" // public key
+        );
+        setEmailSent((prev) => ({
+          ...prev,
+          template_nms012o: true,
+        }));
+      }
     }
-  }, [sendEmail, templateParams]);
+  }, [sendEmail, templateParams, emailSent]);
 
   return (
     <BaseTemplate activeStep={3}>
