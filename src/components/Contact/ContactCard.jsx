@@ -1,6 +1,26 @@
+import React, { useState } from "react";
 import { Grid, Box, TextField, Button, Container } from "@mui/material";
 
 const ContactCard = ({ handleSubmit }) => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    emailaddress: "",
+    phonenumber: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const isFormValid = () => {
+    return Object.values(formData).every((value) => value.trim() !== "");
+  };
+
   return (
     <Container maxWidth="sm">
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 4 }}>
@@ -15,6 +35,8 @@ const ContactCard = ({ handleSubmit }) => {
               label="First Name"
               autoFocus
               variant="standard"
+              value={formData.firstName}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -26,6 +48,8 @@ const ContactCard = ({ handleSubmit }) => {
               name="lastName"
               autoComplete="family-name"
               variant="standard"
+              value={formData.lastName}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -37,6 +61,8 @@ const ContactCard = ({ handleSubmit }) => {
               name="emailaddress"
               autoComplete="email"
               variant="standard"
+              value={formData.emailaddress}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -49,6 +75,8 @@ const ContactCard = ({ handleSubmit }) => {
               id="phonenumber"
               autoComplete="tel"
               variant="standard"
+              value={formData.phonenumber}
+              onChange={handleChange}
             />
           </Grid>
         </Grid>
@@ -57,6 +85,7 @@ const ContactCard = ({ handleSubmit }) => {
           fullWidth
           variant="contained"
           sx={{ mt: 6, mb: 2 }}
+          disabled={!isFormValid()}
         >
           Submit
         </Button>
