@@ -7,6 +7,19 @@ import BaseTemplate from "../BaseTemplate";
 import emailjs from "@emailjs/browser";
 import ReactPixel from "react-facebook-pixel";
 
+const useGoogleTagManager = (id) => {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, [id]);
+};
+
 const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
   const [loading, setLoading] = useState(true);
   const [loadTransitionState, setLoadTransitionState] = useState(true);
@@ -30,6 +43,23 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
     license: chosenTier.license,
     phonenumber: formData.phonenumber,
   };
+
+  useEffect(() => {
+    const handlePageLoad = () => {
+      if (window.location.pathname === "/confirmation") {
+        console.log("Made it react");
+        window.gtag("event", "conversion", {
+          send_to: "AW-872633341/JZDUCLudzK8ZEP2njaAD",
+        });
+      }
+    };
+
+    window.addEventListener("load", handlePageLoad);
+
+    return () => {
+      window.removeEventListener("load", handlePageLoad);
+    };
+  }, []);
 
   useEffect(() => {
     if (orderNumber === "") {
