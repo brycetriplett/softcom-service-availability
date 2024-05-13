@@ -46,8 +46,10 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        console.log("Hello from index.html");
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") {
+          console.log("Hello from index.html");
+        }
       });
     </script>
   </body>
