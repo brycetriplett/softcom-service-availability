@@ -1,3 +1,4 @@
+/* global gtag */
 import React, { useEffect, useState } from "react";
 import { Typography, Zoom, Stack, Divider } from "@mui/material";
 import { towerCoverageAPI, parseResponse } from "../../api";
@@ -40,9 +41,9 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
         .then(() => {
           // Track Lead event when the order is successfully placed
           ReactPixel.track("Lead", {
-            content_name: "OrderConfirmation", // Replace with appropriate content name
-            value: chosenTier.price, // You can adjust the value based on your scenario
-            currency: "USD", // Replace with the appropriate currency code
+            content_name: "OrderConfirmation",
+            value: chosenTier.price,
+            currency: "USD",
           });
 
           // Set sendEmail to true after successfully placing the order
@@ -50,7 +51,7 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
         })
         .catch(() => setPage("error"));
     }
-  }, [orderNumber, formData, setPage]);
+  }, [orderNumber, formData, setPage, chosenTier.price]);
 
   useEffect(() => {
     let timeoutID;
@@ -70,10 +71,10 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
     if (sendEmail) {
       if (!emailSent.template_zz9t4op) {
         emailjs.send(
-          "service_vm3rbsi", // service ID
-          "template_zz9t4op", // template ID
-          templateParams, // template parameters
-          "2xncjIQ_0IupPvZzO" // public key
+          "service_vm3rbsi",
+          "template_zz9t4op",
+          templateParams,
+          "2xncjIQ_0IupPvZzO"
         );
         setEmailSent((prev) => ({
           ...prev,
@@ -82,10 +83,10 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
       }
       if (!emailSent.template_nms012o) {
         emailjs.send(
-          "service_vm3rbsi", // service ID
-          "template_nms012o", // template ID
-          templateParams, // template parameters
-          "2xncjIQ_0IupPvZzO" // public key
+          "service_vm3rbsi",
+          "template_nms012o",
+          templateParams,
+          "2xncjIQ_0IupPvZzO"
         );
         setEmailSent((prev) => ({
           ...prev,
@@ -94,6 +95,14 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
       }
     }
   }, [sendEmail, templateParams, emailSent]);
+
+  useEffect(() => {
+    console.log("firing conversion event");
+    // Fire Google Analytics conversion event
+    gtag("event", "conversion", {
+      send_to: "AW-872633341/JZDUCLudzK8ZEP2njaAD",
+    });
+  }, []);
 
   return (
     <BaseTemplate activeStep={3}>
