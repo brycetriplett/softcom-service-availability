@@ -11,27 +11,19 @@ const findMaxPrice = async (data) => {
     return result;
   };
 
-  formData.multicoverageid = tiers.main.low.mcid;
+  formData.multicoverageid = tiers.main.mid.mcid;
   let result = await process(formData);
 
   if (result === "yes") {
-    resultList = { ...tiers.main.low.values };
+    resultList = { ...tiers.main.mid.values };
     formData.multicoverageid = tiers.main.high.mcid;
 
     let result = await process(formData);
     if (result === "yes") {
       resultList = {
         ...resultList,
-        ...tiers.main.mid.values,
         ...tiers.main.high.values,
       };
-    } else {
-      formData.multicoverageid = tiers.main.mid.mcid;
-
-      let result = await process(formData);
-      if (result === "yes") {
-        resultList = { ...resultList, ...tiers.main.mid.values };
-      }
     }
   }
 

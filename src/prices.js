@@ -1,17 +1,5 @@
 const tiers = {
   main: {
-    low: {
-      mcid: "55805",
-      values: {
-        50: {
-          title: "Freedom 50",
-          price: "100",
-          description: ["50 Mbps Download", "10 Mbps Upload"],
-          license: 100,
-        },
-      },
-    },
-
     mid: {
       mcid: "55982",
       values: {
