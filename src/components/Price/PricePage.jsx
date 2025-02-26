@@ -79,8 +79,9 @@ const PricePage = ({ formData, setFormData, setChosenTier }) => {
               container
               rowSpacing={5}
               columnSpacing={8}
-              alignItems="center"
+              alignItems="flex-start"
               justifyContent="center"
+
             >
               {Object.keys(tierList).map((key) => (
                 <PriceCard

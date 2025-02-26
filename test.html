@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broadband Widget Test</title>
+
+    <!-- Include CrowdFiber Styles and Script -->
+    <link rel="stylesheet" href="https://cdn.crowdfiber.io/broadband-consumer-labels/widget_label.css" type="text/css">
+    <script src="https://cdn.crowdfiber.io/broadband-consumer-labels/widget.js" defer></script>
+</head>
+<body>
+
+    <h1>Broadband Label Test</h1>
+
+    <!-- Broadband Label Freedom 400 -->
+    <div class="cf_bcl_wc" data-label-id="ItTq84m72M1S"></div>
+
+    <!-- Broadband Label Freedom 200 -->
+    <div class="cf_bcl_wc" data-label-id="n9QJhgaiHjIH"></div>
+
+    <!-- Broadband Label Freedom 100 -->
+    <div class="cf_bcl_wc" data-label-id="u1Sh4pAS2gMi"></div>
+
+    <script>
+        // Wait for the script to load, then initialize the widget
+        window.onload = function () {
+            if (window.cf_bcl_wc && typeof window.cf_bcl_wc.init === "function") {
+                console.log("Initializing CrowdFiber Widget...");
+                window.cf_bcl_wc.init();
+            } else {
+                console.error("CrowdFiber Widget failed to load.");
+            }
+        };
+    </script>
+
+</body>
+</html>
