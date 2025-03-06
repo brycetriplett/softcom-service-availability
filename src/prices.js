@@ -26,7 +26,7 @@ const tiers = {
         400: {
           title: "Freedom 400",
           price: "139.99",
-          description: ["400 Mbps Download", "30 Mbps Upload"],
+          description: ["400 Mbps Download", "50 Mbps Upload"],
           license: 450,
           broadband_facts: "ItTq84m72M1S"
         },
