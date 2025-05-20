@@ -1,7 +1,7 @@
 import { towerCoverageAPI, parseResponse } from "../../api";
 import tiers from "../../prices";
 
-const findMaxPrice = async (data) => {
+const findMaxPriceOld = async (data) => {
   let formData = { ...data };
   let resultList = {};
 
@@ -29,5 +29,13 @@ const findMaxPrice = async (data) => {
 
   return resultList;
 };
+
+
+const findMaxPrice = async (data) => {
+  return { 
+    ...tiers.main.mid.values,
+    ...tiers.main.high.values
+  }
+}
 
 export default findMaxPrice;
