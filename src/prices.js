@@ -21,14 +21,14 @@ const tiers = {
           price: "84.99",
           description: ["200 Mbps Download", "25 Mbps Upload"],
           license: 350,
-          broadband_facts: "n9QJhgaiHjIH"
+          broadband_facts: "Jkt9L12Zoft0"
         },
         400: {
           title: "Freedom 400",
           price: "114.99",
           description: ["400 Mbps Download", "50 Mbps Upload"],
           license: 450,
-          broadband_facts: "ItTq84m72M1S"
+          broadband_facts: "Z5BngcMcMcmH"
         },
       },
     },
