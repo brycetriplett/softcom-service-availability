@@ -57,13 +57,13 @@ const PriceCard = ({ formData, setFormData, setChosenTier, tier }) => {
             alignItems='center'
             justifyContent='center'
             xs={12}
-            md={4}
+            md={6}
         >
             <Box display="flex" justifyContent="center">
                 <Card sx={{
                     width: {
                         xs: 300,
-                        md: 1000,
+                        md: 350,
                     },
                     transition: 'transform 0.3s',
                     '&:hover': {
@@ -73,7 +73,10 @@ const PriceCard = ({ formData, setFormData, setChosenTier, tier }) => {
                 }}>
                     <CardHeader
                         title={tier.title}
-                        titleTypographyProps={{ align: 'center' }}
+                        titleTypographyProps={{
+                            align: 'center',
+                            sx: { minHeight: 70, display: 'flex', alignItems: 'center', justifyContent: 'center' }
+                        }}
                         sx={{
                             backgroundColor: (theme) => theme.palette.grey[300]
                         }}
@@ -118,7 +121,7 @@ const PriceCard = ({ formData, setFormData, setChosenTier, tier }) => {
                 </Card>
             </Box>
             <Box display="flex" justifyContent="center" mt={2}>
-                <Accordion sx={{ width: { xs: 300, md: 1000 } }}>
+                <Accordion sx={{ width: { xs: 300, md: 350 } }}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
