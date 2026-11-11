@@ -1,7 +1,6 @@
 const tiers = {
   main: {
     mid: {
-      mcid: "55982",
       values: {
         400: {
           title: "Freedom 400 Max Savings",
@@ -29,7 +28,6 @@ const tiers = {
     },
 
     high: {
-      mcid: "55981",
       values: {
         1000: {
           title: "Freedom Gig Max Savings",

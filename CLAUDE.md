@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A single-page React app (Create React App, `react-scripts` 5) that lets a prospective Softcom internet customer check service availability at their address, pick a pricing tier, submit contact info, and receive an order confirmation. It's deployed to Heroku (`static.json` + CRA static buildpack) at softcom-service-availability.herokuapp.com and is embedded/linked from softcom.net.
+A single-page React app (Create React App, `react-scripts` 5) that lets a prospective Softcom internet customer enter their address, pick a pricing tier, submit contact info, and receive an order confirmation. It's deployed to Heroku (`static.json` + CRA static buildpack) at softcom-service-availability.herokuapp.com and is embedded/linked from softcom.net.
+
+There is no backend of its own — leads are delivered to the sales team purely via the EmailJS integration in `ConfirmationPage.jsx` (no external order-tracking system is involved; see below).
 
 ## Commands
 
@@ -27,19 +29,14 @@ No test files currently exist in `src/`, despite `@testing-library/*` being inst
 
 `src/prices.js` defines the available service tiers/prices/descriptions/`broadband_facts` IDs as a static object (`tiers.main.mid`, `tiers.main.high`). There is no admin panel or CMS — changing prices, descriptions, or FCC "Broadband Facts" label IDs means editing this file directly and redeploying.
 
-### Address-checking against TowerCoverage.com is currently bypassed
+### Every address sees every plan — there is no coverage check
 
-`src/components/Price/findMaxPrice.js` contains two implementations:
-- `findMaxPriceOld` — the real logic: calls TowerCoverage's `EUSPrequalAPI` (via `towerCoverageAPI` in `src/api.js`) once per tier's `multicoverageid` to check whether the entered address falls inside that tier's coverage map, returning only the tiers the address qualifies for.
-- `findMaxPrice` (the one actually exported and used) — ignores the address entirely and just returns *all* tiers (`mid` + `high`) unconditionally.
-
-If address-based eligibility checking needs to come back, swap the export back to `findMaxPriceOld`-based logic. Don't assume `PricePage` reflects real coverage today — any address currently sees every plan.
+`findMaxPrice` (`src/components/Price/findMaxPrice.js`) ignores the submitted address entirely and just returns all tiers (`mid` + `high`) from `prices.js` unconditionally. This app used to check address eligibility against TowerCoverage.com's map-based coverage API before presenting plans, and submit completed orders to TowerCoverage's EUS API to generate a tracked lead with an order number. That TowerCoverage integration (and the `towerCoverageAPI`/`parseResponse` helpers it depended on in `api.js`) has been removed entirely — Softcom no longer pays for the service. Don't reintroduce calls to `towercoverage.com`; if address-based eligibility filtering is wanted again, it needs a different provider.
 
 ### External integrations, each used for a different step
 
-- **TowerCoverage.com** (`src/api.js`, `towerCoverageAPI`) — XML-over-HTTP API (POST, `application/x-www-form-urlencoded`, response parsed via `DOMParser` in `parseResponse`). Used for: (bypassed) coverage prequalification, and — live, in `ConfirmationPage` — `EUSsubmisssion`, which actually registers the lead/order and returns an order number that sales sees on TowerCoverage's own map tooling. `initialFormData` in `api.js` carries the account/key credentials TowerCoverage needs on every call (these are client-exposed by design — this is a public-facing form posting to a third-party lead API, not a protected backend).
-- **EmailJS** (`ConfirmationPage.jsx`) — fires two confirmation emails (`template_zz9t4op`, `template_nms012o`) via `service_vm3rbsi` once the TowerCoverage order submission succeeds.
-- **Facebook Pixel** (`react-facebook-pixel`, initialized in `App.js`) — tracks page views on every route change and a `Lead` conversion event on successful order placement.
+- **EmailJS** (`ConfirmationPage.jsx`) — fires two notification emails (`template_zz9t4op`, `template_nms012o`) via `service_vm3rbsi` as soon as the confirmation page mounts. This is the sole mechanism by which the sales team learns about a new lead — there is no external order/lead-tracking system anymore, and no order number is generated or shown to the customer.
+- **Facebook Pixel** (`react-facebook-pixel`, initialized in `App.js`) — tracks page views on every route change and a `Lead` conversion event when the confirmation page mounts.
 - **Google Ads conversion tracking** (`gtag`, called directly in `ConfirmationPage.jsx`) — assumes `gtag` is a global, loaded via a script tag in `public/index.html`, not imported.
 - **CrowdFiber Broadband Labels widget** (`PriceCard.jsx`) — loads `https://cdn.crowdfiber.io/broadband-consumer-labels/widget.js` dynamically at runtime (not bundled) to render the FCC-mandated "Broadband Facts" label per plan, keyed by the `broadband_facts` ID from `prices.js`. The widget needs a delay after script load before `window.BroadbandLabelWidget.renderNewOnly()` is safe to call — see the `setTimeout` guards; this is fragile and a known source of console errors if the CDN is slow.
 

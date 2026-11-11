@@ -1,7 +1,7 @@
 import { Paper, Typography, Grid, Button, Container } from "@mui/material";
 import ChosenPrice from "./ChosenPrice";
 
-const OrderConfirmation = ({ orderNumber, formData, chosenTier }) => {
+const OrderConfirmation = ({ formData, chosenTier }) => {
   const handlePrint = () => {
     window.print();
   };
@@ -18,9 +18,6 @@ const OrderConfirmation = ({ orderNumber, formData, chosenTier }) => {
           borderWidth: 1,
         }}
       >
-        <Typography variant="h4" gutterBottom sx={{ textAlign: "center" }}>
-          Order Number: {orderNumber.match(/\d+/)}
-        </Typography>
         <Container
           sx={{
             alignItems: "center",

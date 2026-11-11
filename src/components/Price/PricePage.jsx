@@ -15,7 +15,7 @@ const PricePage = ({ formData, setFormData, setChosenTier }) => {
   const history = useHistory();
 
   useEffect(() => {
-    findMaxPrice(formData)
+    findMaxPrice()
       .then((res) => {
         if (Object.keys(res).length === 0) {
           history.push("noService");
