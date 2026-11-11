@@ -1,6 +1,7 @@
 /* global gtag */
 import React, { useEffect, useState } from "react";
 import { Typography, Zoom, Stack, Divider } from "@mui/material";
+import { useHistory } from "react-router-dom";
 import { towerCoverageAPI, parseResponse } from "../../api";
 import LoadingPage from "../LoadingPage";
 import OrderConfirmation from "./OrderConfirmation";
@@ -8,7 +9,8 @@ import BaseTemplate from "../BaseTemplate";
 import emailjs from "@emailjs/browser";
 import ReactPixel from "react-facebook-pixel";
 
-const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
+const ConfirmationPage = ({ formData, chosenTier }) => {
+  const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [loadTransitionState, setLoadTransitionState] = useState(true);
   const [orderNumber, setOrderNumber] = useState("");
@@ -49,9 +51,9 @@ const ConfirmationPage = ({ formData, setPage, chosenTier }) => {
           // Set sendEmail to true after successfully placing the order
           setSendEmail(true);
         })
-        .catch(() => setPage("error"));
+        .catch(() => history.push("error"));
     }
-  }, [orderNumber, formData, setPage, chosenTier.price]);
+  }, [orderNumber, formData, history, chosenTier.price]);
 
   useEffect(() => {
     let timeoutID;
